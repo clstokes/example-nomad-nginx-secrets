@@ -30,6 +30,7 @@ job "nginx" {
         destination = "custom/default.conf"
       }
 
+      # consul kv put features/motd 'Good afternoon.'
       template {
         data = <<EOH
           {{ if keyExists "features/motd" }}

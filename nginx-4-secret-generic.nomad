@@ -34,6 +34,8 @@ job "nginx" {
         destination = "custom/default.conf"
       }
 
+      # consul kv put features/motd 'Good afternoon.'
+      # vault write secret/motd ttl=10s message='Live demos rock!!!'
       template {
         data = <<EOH
           {{ if keyExists "features/motd" }}
