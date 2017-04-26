@@ -1,5 +1,5 @@
 job "nginx" {
-  datacenters = ["dc1"]
+  datacenters = ["us-west-1"]
   type = "service"
 
   group "nginx" {
@@ -32,26 +32,24 @@ job "nginx" {
 
       template {
         data = <<EOH
-          HI!!!!
+          Good morning.
         EOH
 
         destination = "local/data/index.html"
       }
 
       resources {
-        cpu    = 500 # 500 MHz
-        memory = 256 # 256MB
+        cpu    = 100 # 100 MHz
+        memory = 128 # 128 MB
         network {
           mbits = 10
-          port "http" {
-            static = 8080
-          }
+          port "http" {}
         }
       }
 
       service {
         name = "nginx"
-        tags = ["frontend"]
+        tags = ["frontend","urlprefix-/nginx strip=/nginx"]
         port = "http"
         check {
           type     = "tcp"

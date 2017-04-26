@@ -5,6 +5,10 @@ job "nginx" {
   group "nginx" {
     count = 1
 
+    vault {
+      policies = ["frontend"]
+    }
+
     task "nginx" {
       driver = "docker"
 
@@ -37,6 +41,8 @@ job "nginx" {
           {{ else }}
             Good morning.
           {{ end }}
+          {{ with secret "secret/motd" }}
+          {{ .Data.message }}{{ end }}
         EOH
 
         destination = "local/data/index.html"

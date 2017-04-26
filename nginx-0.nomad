@@ -1,5 +1,5 @@
 job "nginx" {
-  datacenters = ["dc1"]
+  datacenters = ["us-west-1"]
   type = "service"
 
   group "nginx" {
@@ -16,12 +16,12 @@ job "nginx" {
       }
 
       resources {
-        cpu    = 500 # 500 MHz
-        memory = 256 # 256MB
+        cpu    = 100 # 100 MHz
+        memory = 128 # 128 MB
         network {
           mbits = 10
           port "http" {
-            static = 8080
+            static = "8080"
           }
         }
       }
