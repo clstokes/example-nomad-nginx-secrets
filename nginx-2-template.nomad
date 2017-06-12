@@ -1,5 +1,5 @@
 job "nginx" {
-  datacenters = ["us-west-1"]
+  datacenters = ["dc1"]
   type = "service"
 
   group "nginx" {
@@ -21,7 +21,10 @@ job "nginx" {
       template {
         data = <<EOH
           server {
-            location / {
+            location /consul-services {
+              proxy_pass http://10.228.239.214:8500/v1/catalog/services?passing;
+            }
+            location /consul-services-file/ {
               root /local/data/;
             }
           }
@@ -32,7 +35,8 @@ job "nginx" {
 
       template {
         data = <<EOH
-          Good morning.
+          {{ range services }}
+          {{ .Name }}: {{ .Tags | join "," }}{{ end }}
         EOH
 
         destination = "local/data/index.html"
@@ -43,7 +47,9 @@ job "nginx" {
         memory = 128 # 128 MB
         network {
           mbits = 10
-          port "http" {}
+          port "http" {
+            static = 8080
+          }
         }
       }
 
