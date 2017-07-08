@@ -1,2 +1,3 @@
 binaries
 .vagrant/
+nomad_data/
