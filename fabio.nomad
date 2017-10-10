@@ -1,5 +1,5 @@
 job "fabio" {
-  datacenters = ["us-west-1"]
+  datacenters = ["dc1"]
   type = "system"
 
   group "fabio" {

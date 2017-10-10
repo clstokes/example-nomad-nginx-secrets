@@ -1,5 +1,5 @@
 job "nginx" {
-  datacenters = ["us-west-1"]
+  datacenters = ["dc1"]
   type = "service"
 
   group "nginx" {
